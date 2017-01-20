@@ -1,0 +1,18 @@
+{
+  "name": "css-to-typestyle",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.1.5"
+  },
+  "scripts": {
+    "start": "tsc -w"
+  },
+  "typings": "./src/main",
+  "dependencies": {
+    "@types/node": "^7.0.0",
+    "postcss": "^5.2.10"
+  }
+}
