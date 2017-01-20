@@ -2,51 +2,64 @@ import { isNumber, toCamelCase } from './strings';
 
 type Properties = { [key: string]: (string | number | (string | number)[]); };
 
-let detectedRules: { [selector: string]: Properties; } = {};
+let currentRules: { [selector: string]: Properties; } = {};
+let currentDecls: Properties = {};
 
-export function walkRules(rule: any) {
-    // find all rules and collect the properties
-    const props: Properties = {};
-    rule.walkDecls((dec: any) => {
-        // get property name
-        const propName = dec.prop;
-        const prop = propName.indexOf('-') === 0 ? propName : toCamelCase(propName);
-
-        const objValue = dec.value;     
-        let value: string | number;
-        if (typeof isNumber(objValue)) {
-            value = parseFloat(objValue); 
-        } else {
-            value = objValue; 
-        }
-
-        if (!props.hasOwnProperty(prop)) {
-            // set the value directly            
-            props[prop] = value; 
-        }
-        // if property has been collected, convert to an array for fallback                
-        else {
-            const propValue = props[prop];
-            if (typeof propValue === 'string' || typeof propValue === 'number') {
-                props[prop] = [propValue];
-            }
-            // add to the list of values
-            (props[prop] as (string | number)[]).push(value)
-        }
-    });
-
-    // convert to string and add to file
-    detectedRules[rule.selector] = props;
-}
-
-export function getImports() {
-    return `import{cssRule}from'typestyle';`;
+export function clearDecls() {
+    currentDecls = {};
 }
 
 export function clearRules() {
-    detectedRules = {};
+    currentRules = {};
+}
+
+export function getDecls() {
+    return currentDecls;
+}
+
+export function getImports() {
+    return `import{cssRule,fontFace}from'typestyle';`;
 }
 
 export function getRules() {
-    return detectedRules;
+    return currentRules;
+}
+
+export function walkDecls(dec: any) {
+    // get property name
+    const propName = dec.prop;
+    const prop = propName.indexOf('-') === 0 ? propName : toCamelCase(propName);
+
+    const objValue = dec.value;     
+    let value: string | number;
+    if (isNumber(objValue)) {
+        value = parseFloat(objValue); 
+    } else {
+        value = objValue; 
+    }
+
+    if (!currentDecls.hasOwnProperty(prop)) {
+        // set the value directly            
+        currentDecls[prop] = value; 
+    }
+    // if property has been collected, convert to an array for fallback                
+    else {
+        const propValue = currentDecls[prop];
+        if (typeof propValue === 'string' || typeof propValue === 'number') {
+            currentDecls[prop] = [propValue];
+        }
+        // add to the list of values
+        (currentDecls[prop] as (string | number)[]).push(value)
+    }
+}
+
+export function walkRules(rule: any) {
+    // find all rules and collect the properties
+    rule.walkDecls((dec: any) => {
+        clearDecls();
+        walkDecls(dec);
+    });
+
+    // convert to string and add to file
+    currentRules[rule.selector] = getDecls();
 }

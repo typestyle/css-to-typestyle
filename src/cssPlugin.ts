@@ -1,5 +1,5 @@
 const postcss = require('postcss');
-import { clearRules, getImports, getRules, walkRules } from './cssWalkers';
+import { clearDecls, clearRules, getDecls, getImports, getRules, walkDecls, walkRules } from './cssWalkers';
 
 let fileContents = '';
 export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(options: any) {
@@ -17,24 +17,23 @@ export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(op
         });
         const normalRules = getRules();
         fileContents += Object.keys(normalRules)
-            .map(r => `cssRule('${r}',${JSON.stringify(normalRules[r])});`)
+            .map(r => `\ncssRule('${r}',${JSON.stringify(normalRules[r])});`)
             .join('');
               
         // process at rules
-        clearRules();
         css.walkAtRules((atRule: any) => {
             // process keyframes, use cssRule to avoid breaking css
             if (atRule.name === 'keyframes') {
                 clearRules();
                 atRule.walkRules(walkRules);
-                fileContents += `cssRule('@keyframes ${atRule.params}',` + JSON.stringify({ $nest: getRules() }) + ');';
+                fileContents += `\ncssRule('@keyframes ${atRule.params}',` + JSON.stringify({ $nest: getRules() }) + ');';
                 return;
             }
 
             if (atRule.name === 'font-face') {
-                clearRules();
-                atRule.walkRules(walkRules);
-                fileContents += `cssRule('@font-face', {` + getRules() + '});';
+                clearDecls();
+                atRule.walkDecls(walkDecls);
+                fileContents += `\nfontFace(` + JSON.stringify(getDecls()) + ');';
                 return;
             } else {
 
