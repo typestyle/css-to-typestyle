@@ -22,22 +22,27 @@ export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(op
               
         // process at rules
         css.walkAtRules((atRule: any) => {
-            // process keyframes, use cssRule to avoid breaking css
-            if (atRule.name === 'keyframes') {
+            // process keyframes and media
+            if (atRule.name === 'keyframes' || atRule.name.indexOf('media') === 0) {
                 clearRules();
                 atRule.walkRules(walkRules);
-                fileContents += `\ncssRule('@keyframes ${atRule.params}',` + JSON.stringify({ $nest: getRules() }) + ');';
+                fileContents += `\ncssRule('@${atRule.name} ${atRule.params}',` + JSON.stringify({ $nest: getRules() }) + ');';
                 return;
             }
-
+            // process font-face
             if (atRule.name === 'font-face') {
                 clearDecls();
                 atRule.walkDecls(walkDecls);
                 fileContents += `\nfontFace(` + JSON.stringify(getDecls()) + ');';
                 return;
-            } else {
-
-            }
+            } 
+            // process page
+            if (atRule.name === 'page') {
+                clearDecls();
+                atRule.walkDecls(walkDecls);
+                fileContents += `\ncssRule('@page', ` + JSON.stringify(getDecls()) + ');';
+                return;
+            } 
         });
     }
 });

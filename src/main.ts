@@ -83,10 +83,16 @@ const fontFaces = `
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }`;
 
+const page = `@page { 
+    size: 8.5in 11in; 
+    margin: 2cm 
+}`;
+
 const contents =
     normalize +
     fontFaces + 
-    keyframes;
+    keyframes + 
+    page;
 
 postcss([cssPlugin]).process(contents, {}).then((result: any) => {
     console.log(getContents());
