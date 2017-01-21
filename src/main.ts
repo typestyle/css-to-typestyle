@@ -84,7 +84,6 @@ const fontFaces = `
 }`;
 
 const page = `@page { 
-    size: 8.5in 11in; 
     margin: 2cm 
 }`;
 
