@@ -1,9 +1,14 @@
 {
-  "name": "css-to-typestyle",
-  "version": "0.0.0",
-  "description": "",
-  "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",
-  "license": "MIT",
+  "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",  
+  "bugs": {
+    "url": "https://github.com/notoriousb1t/css-to-typestyle/issues"
+  },
+  "homepage": "https://github.com/notoriousb1t/css-to-typestyle#readme",
+  "description": "Transforms CSS to TypeStyle",  
+  "dependencies": {
+    "@types/node": "^7.0.0",
+    "postcss": "^5.2.10"
+  },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/chai-as-promised": "0.0.29",
@@ -14,12 +19,19 @@
     "ts-node": "^2.0.0",
     "typescript": "^2.1.5"
   },
+  "license": "MIT",
+  "main": "./src/main",
+  "name": "css-to-typestyle",  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/notoriousb1t/css-to-typestyle"
+  },
   "scripts": {
+    "build": "tsc -p .",
+    "preversion": "npm run build",
+    "postversion": "git push --follow-tags && npm publish",
     "test": "node_modules/.bin/mocha --require ts-node/register --reporter spec ./tests/**/**.ts"
   },
   "typings": "./src/main",
-  "dependencies": {
-    "@types/node": "^7.0.0",
-    "postcss": "^5.2.10"
-  }
+  "version": "0.0.0"
 }
