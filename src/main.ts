@@ -60,7 +60,7 @@ export function convertCss(contents: string): Promise<string> {
     };
   });
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve: (val: string) => void, reject: (val: string) => void) => {
     const postcss2 = postcss as Function;
     postcss2([cssPlugin])
       .process(contents, {})

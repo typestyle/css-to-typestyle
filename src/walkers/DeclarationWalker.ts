@@ -39,7 +39,7 @@ export class DeclarationWalker {
         declarations[prop] = [propValue];
       }
       // add to the list of values
-      (declarations[prop] as (string | number)[]).push(value)
+      (declarations[prop] as (string | number)[]).push(value);
     }
   }
 }
