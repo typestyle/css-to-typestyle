@@ -1,9 +1,12 @@
-const postcss = require('postcss');
+import * as postcss from 'postcss';
 import { cssPlugin, getContents } from './cssPlugin';
 
-export const convertCss = (contents: string): Promise<string> => {
+// typings on postcss don't appear to be correct
+const postcss2 = postcss as Function;
+
+export function convertCss(contents: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    postcss([cssPlugin])
+    postcss2([cssPlugin])
       .process(contents, {})
       .then(() => resolve(getContents()), (err: any) => reject(err));
   });

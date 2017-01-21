@@ -6,8 +6,6 @@ const expect = chai.expect;
 import { convertCss } from '../src/main';
 
 describe('basic', () => {
-
-
   it('correctly parses .rule declarations', (done) => {
     const testCase =
       `.rule{
