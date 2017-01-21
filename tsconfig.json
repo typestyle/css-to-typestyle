@@ -19,8 +19,7 @@
         "sourceMap": false,
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
-        "target": "es6",
-        "allowJs": true
+        "target": "es6"
     },
     "exclude": [
         "dist",

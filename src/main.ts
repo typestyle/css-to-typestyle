@@ -1,13 +1,17 @@
 import * as postcss from 'postcss';
 import { DeclarationWalker, RuleWalker } from './walkers';
 
+function prettyPrint(obj: any): string {
+  return JSON.stringify(obj, undefined, 2);
+}
+
 export function convertCss(contents: string): Promise<string> {
   let fileContents = '';
 
   // create a css plugin for post css to parse and walk the document
   const cssPlugin = postcss.plugin('css-to-typestyle', (options: postcss.ProcessOptions): postcss.Transformer => {
     return (root: postcss.Root) => {
-      fileContents = `import{cssRule,fontFace}from'typestyle';`;
+      fileContents = `import { cssRule, fontFace } from 'typestyle;\n`;
 
       const ruleWalker = new RuleWalker();
       const declarationWalker = new DeclarationWalker();
@@ -21,9 +25,12 @@ export function convertCss(contents: string): Promise<string> {
         ruleWalker.walk(rule);
       });
       const normalRules = ruleWalker.getRules();
-      fileContents += Object.keys(normalRules)
-        .map((r: string) => `\ncssRule('${r}',${JSON.stringify(normalRules[r])});`)
-        .join('');
+      const normalRulesContents = Object.keys(normalRules)
+        .map((r: string) => `cssRule('${r}', ${prettyPrint(normalRules[r])});`);
+
+      if (normalRulesContents) {
+        fileContents += normalRulesContents.join('\n') + '\n';
+      }
 
       // process at rules
       root.walkAtRules((atRule: postcss.AtRule) => {
@@ -31,21 +38,21 @@ export function convertCss(contents: string): Promise<string> {
         if (atRule.name === 'keyframes' || atRule.name.indexOf('media') === 0) {
           ruleWalker.clearRules();
           atRule.walkRules(ruleWalker.walk);
-          fileContents += `\ncssRule('@${atRule.name} ${atRule.params}',` + JSON.stringify({ $nest: ruleWalker.getRules() }) + ');';
+          fileContents += `cssRule('@${atRule.name} ${atRule.params}', ` + prettyPrint({ $nest: ruleWalker.getRules() }) + ');\n';
           return;
         }
         // process font-face
         if (atRule.name === 'font-face') {
           declarationWalker.clearProperties();
           atRule.walkDecls(declarationWalker.walk);
-          fileContents += `\nfontFace(` + JSON.stringify(declarationWalker.getProperties()) + ');';
+          fileContents += `fontFace(` + prettyPrint(declarationWalker.getProperties()) + ');\n';
           return;
         }
         // process page
         if (atRule.name === 'page') {
           declarationWalker.clearProperties();
           atRule.walkDecls(declarationWalker.walk);
-          fileContents += `\ncssRule('@page',` + JSON.stringify(declarationWalker.getProperties()) + ');';
+          fileContents += `cssRule('@page', ` + prettyPrint(declarationWalker.getProperties()) + ');\n';
           return;
         }
       });

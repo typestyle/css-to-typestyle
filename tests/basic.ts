@@ -14,8 +14,12 @@ describe('basic', () => {
       }`;
 
     const result =
-      `import{cssRule,fontFace}from'typestyle';
-cssRule('.rule',{"color":"rgb(255, 0, 0)","opacity":0});`;
+`import { cssRule, fontFace } from 'typestyle;
+cssRule('.rule', {
+  "color": "rgb(255, 0, 0)",
+  "opacity": 0
+});
+`;
 
     expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
   });
@@ -27,26 +31,41 @@ cssRule('.rule',{"color":"rgb(255, 0, 0)","opacity":0});`;
       }`;
 
     const result =
-      `import{cssRule,fontFace}from'typestyle';
-fontFace({"fontFamily":"'Roboto'"});`;
+`import { cssRule, fontFace } from 'typestyle;
+
+fontFace({
+  "fontFamily": "'Roboto'"
+});
+`;
 
     expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
   });
 
   it('correctly parses @keyframes', (done) => {
     const testCase =
-      `@keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0
-            }
-        }`;
+`@keyframes fadeOut {
+      0% {
+          opacity: 1;
+      }
+      100% {
+          opacity: 0
+      }
+  }`;
 
     const result =
-      `import{cssRule,fontFace}from'typestyle';
-cssRule('@keyframes fadeOut',{"$nest":{"0%":{"opacity":1},"100%":{"opacity":0}}});`;
+`import { cssRule, fontFace } from 'typestyle;
+
+cssRule('@keyframes fadeOut', {
+  "$nest": {
+    "0%": {
+      "opacity": 1
+    },
+    "100%": {
+      "opacity": 0
+    }
+  }
+});
+`;
 
     expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
   });
@@ -57,10 +76,13 @@ cssRule('@keyframes fadeOut',{"$nest":{"0%":{"opacity":1},"100%":{"opacity":0}}}
   }`;
 
     const result =
-      `import{cssRule,fontFace}from'typestyle';
-cssRule('@page',{"margin":"2cm"});`;
+`import { cssRule, fontFace } from 'typestyle;
+
+cssRule('@page', {
+  "margin": "2cm"
+});
+`;
 
     expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
   });
 });
-
