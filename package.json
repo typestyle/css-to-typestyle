@@ -1,10 +1,10 @@
 {
-  "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",  
+  "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",
   "bugs": {
     "url": "https://github.com/notoriousb1t/css-to-typestyle/issues"
   },
   "homepage": "https://github.com/notoriousb1t/css-to-typestyle#readme",
-  "description": "Transforms CSS to TypeStyle",  
+  "description": "Transforms CSS to TypeStyle",
   "dependencies": {
     "@types/node": "^7.0.0",
     "postcss": "^5.2.10"
@@ -21,7 +21,7 @@
   },
   "license": "MIT",
   "main": "./src/main",
-  "name": "css-to-typestyle",  
+  "name": "css-to-typestyle",
   "repository": {
     "type": "git",
     "url": "https://github.com/notoriousb1t/css-to-typestyle"
@@ -33,5 +33,5 @@
     "test": "node_modules/.bin/mocha --require ts-node/register --reporter spec ./tests/**/**.ts"
   },
   "typings": "./src/main",
-  "version": "0.0.0"
+  "version": "0.0.1"
 }
