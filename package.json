@@ -5,10 +5,14 @@
   "author": "Christopher Wallis <christopher.j.wallis@gmail.com> (http://notoriousb1t.com)",
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^2.2.38",
+    "mocha": "^3.2.0",
+    "ts-node": "^2.0.0",
     "typescript": "^2.1.5"
   },
   "scripts": {
-    "start": "tsc -w"
+    "start": "tsc -w",
+    "test": "node_modules/.bin/mocha --require ts-node/register --reporter spec ./tests/**/**.ts"
   },
   "typings": "./src/main",
   "dependencies": {

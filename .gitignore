@@ -1,5 +1,11 @@
 .alm
 .vscode
+.idea
+.vs
 node_modules
-npm-debug.log
-src/*.js
+npm-debug.log*
+dist
+src/**/*.js
+src/**/*.map
+tests/**/*.js
+tests/**/*.map

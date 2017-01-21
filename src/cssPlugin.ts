@@ -19,7 +19,7 @@ export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(op
         fileContents += Object.keys(normalRules)
             .map(r => `\ncssRule('${r}',${JSON.stringify(normalRules[r])});`)
             .join('');
-              
+
         // process at rules
         css.walkAtRules((atRule: any) => {
             // process keyframes and media
@@ -35,14 +35,14 @@ export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(op
                 atRule.walkDecls(walkDecls);
                 fileContents += `\nfontFace(` + JSON.stringify(getDecls()) + ');';
                 return;
-            } 
+            }
             // process page
             if (atRule.name === 'page') {
                 clearDecls();
                 atRule.walkDecls(walkDecls);
                 fileContents += `\ncssRule('@page', ` + JSON.stringify(getDecls()) + ');';
                 return;
-            } 
+            }
         });
     }
 });
@@ -50,3 +50,5 @@ export const cssPlugin = postcss.plugin('css-to-typestyle', function myplugin(op
 export function getContents() {
     return fileContents;
 }
+
+
