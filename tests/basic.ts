@@ -14,7 +14,7 @@ describe('basic', () => {
       }`;
 
     const result =
-`import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle;
 cssRule('.rule', {
   "color": "rgb(255, 0, 0)",
   "opacity": 0
@@ -31,7 +31,7 @@ cssRule('.rule', {
       }`;
 
     const result =
-`import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle;
 
 fontFace({
   "fontFamily": "'Roboto'"
@@ -43,7 +43,7 @@ fontFace({
 
   it('correctly parses @keyframes', (done) => {
     const testCase =
-`@keyframes fadeOut {
+      `@keyframes fadeOut {
       0% {
           opacity: 1;
       }
@@ -53,7 +53,7 @@ fontFace({
   }`;
 
     const result =
-`import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle;
 
 cssRule('@keyframes fadeOut', {
   "$nest": {
@@ -67,6 +67,31 @@ cssRule('@keyframes fadeOut', {
 });
 `;
 
+
+    expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
+  });
+
+  it('correctly parses @media', (done) => {
+    const testCase =
+      `@media screen and (min-width: 320px) {
+      .rule {
+        min-width: 320px;
+      }
+  }`;
+
+    const result =
+      `import { cssRule, fontFace } from 'typestyle;
+
+cssRule('@media screen and (min-width: 320px)', {
+  "$nest": {
+    ".rule": {
+      "minWidth": "320px"
+    }
+  }
+});
+`;
+
+
     expect(convertCss(testCase)).to.eventually.equal(result).notify(done);
   });
 
@@ -76,7 +101,7 @@ cssRule('@keyframes fadeOut', {
   }`;
 
     const result =
-`import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle;
 
 cssRule('@page', {
   "margin": "2cm"

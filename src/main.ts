@@ -36,6 +36,7 @@ export function convertCss(contents: string): Promise<string> {
       root.walkAtRules((atRule: postcss.AtRule) => {
         // process keyframes and media
         if (atRule.name === 'keyframes' || atRule.name.indexOf('media') === 0) {
+          // todo: separate media out and use media() instead
           ruleWalker.clearRules();
           atRule.walkRules(ruleWalker.walk);
           fileContents += `cssRule('@${atRule.name} ${atRule.params}', ` + prettyPrint({ $nest: ruleWalker.getRules() }) + ');\n';
