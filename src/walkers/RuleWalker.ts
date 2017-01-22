@@ -1,6 +1,7 @@
 import * as postcss from 'postcss';
 import { DeclarationWalker } from './DeclarationWalker';
 import { Properties } from '../types';
+import { sanitizeSelector } from '../utils/strings';
 
 
 export class RuleWalker {
@@ -23,6 +24,6 @@ export class RuleWalker {
     });
 
     // convert to string and add to file
-    this._rules[rule.selector] = decWalker.getProperties();
+    this._rules[sanitizeSelector(rule.selector)] = decWalker.getProperties();
   }
 }

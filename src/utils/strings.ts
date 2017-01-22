@@ -12,3 +12,7 @@ export function toCamelCase(value: string | undefined): string {
 export function isNumber(value: string): boolean {
     return value.match(numberRegex) !== null;
 }
+
+export function sanitizeSelector(value: string): string {
+  return value.replace(/([\n\r\t ]+)/ig, ' ');
+}
