@@ -4,7 +4,7 @@
 .vs
 node_modules
 npm-debug.log*
-dist
+lib
 src/**/*.js
 src/**/*.map
 tests/**/*.js

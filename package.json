@@ -21,7 +21,7 @@
     "typescript": "^2.1.5"
   },
   "license": "MIT",
-  "main": "./src/main",
+  "main": "./lib/main",
   "name": "css-to-typestyle",
   "repository": {
     "type": "git",

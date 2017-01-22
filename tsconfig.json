@@ -14,6 +14,7 @@
         "noImplicitReturns": true,
         "noImplicitUseStrict": true,
         "noUnusedLocals": true,        
+        "outDir": "lib",
         "preserveConstEnums": false,
         "removeComments": false,
         "sourceMap": false,
@@ -22,7 +23,8 @@
         "target": "es6"
     },
     "exclude": [
-        "dist",
+        "lib",
+        "tests",
         "node_modules"
     ]
 }
