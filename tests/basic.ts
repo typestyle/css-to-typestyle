@@ -14,7 +14,7 @@ describe('basic', () => {
       }`;
 
     const result =
-      `import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle';
 cssRule('.rule', {
   "color": "rgb(255, 0, 0)",
   "opacity": 0
@@ -31,7 +31,7 @@ cssRule('.rule', {
       }`;
 
     const result =
-      `import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle';
 
 fontFace({
   "fontFamily": "'Roboto'"
@@ -53,7 +53,7 @@ fontFace({
   }`;
 
     const result =
-      `import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle';
 
 cssRule('@keyframes fadeOut', {
   "$nest": {
@@ -80,7 +80,7 @@ cssRule('@keyframes fadeOut', {
   }`;
 
     const result =
-      `import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle';
 
 cssRule('@media screen and (min-width: 320px)', {
   "$nest": {
@@ -101,7 +101,7 @@ cssRule('@media screen and (min-width: 320px)', {
   }`;
 
     const result =
-      `import { cssRule, fontFace } from 'typestyle;
+      `import { cssRule, fontFace } from 'typestyle';
 
 cssRule('@page', {
   "margin": "2cm"

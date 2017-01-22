@@ -11,7 +11,7 @@ export function convertCss(contents: string): Promise<string> {
   // create a css plugin for post css to parse and walk the document
   const cssPlugin = postcss.plugin('css-to-typestyle', (options: postcss.ProcessOptions): postcss.Transformer => {
     return (root: postcss.Root) => {
-      fileContents = `import { cssRule, fontFace } from 'typestyle;\n`;
+      fileContents = `import { cssRule, fontFace } from 'typestyle';\n`;
 
       const ruleWalker = new RuleWalker();
       const declarationWalker = new DeclarationWalker();
