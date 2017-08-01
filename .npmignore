@@ -1,9 +1,11 @@
-node_modules/
-tests/
 .alm
 .vscode
 .editorconfig
 .gitignore
+node_modules/
+src/
+tests/
+alm.json
 rollup.common.js
 tsconfig.json
 tslint.json

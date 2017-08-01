@@ -15,6 +15,7 @@
     "@types/mocha": "^2.2.41",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
+    "del-cli": "^1.1.0",
     "mocha": "^3.5.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
@@ -28,11 +29,14 @@
     "url": "https://github.com/typestyle/css-to-typestyle"
   },
   "scripts": {
+    "clean": "node_modules/.bin/del-cli -f lib types",
     "build": "tsc -p .",
+    "prebuild": "npm run clean",
     "preversion": "npm run build",
     "postversion": "git push --follow-tags && npm publish",
     "test": "node_modules/.bin/mocha --require ts-node/register --reporter spec ./tests/**/**.ts"
   },
-  "typings": "./src/main",
+  "types": "./types/main",
+  "typings": "./types/main",
   "version": "0.0.7"
 }
