@@ -34,5 +34,5 @@
     "test": "node_modules/.bin/mocha --require ts-node/register --reporter spec ./tests/**/**.ts"
   },
   "typings": "./src/main",
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
